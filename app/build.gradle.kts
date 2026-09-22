@@ -46,4 +46,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp.logging)
     debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.datastore.preferences)
 }
