@@ -14,8 +14,9 @@ import mx.tec.avisos.AvisosApplication
 object AppViewModelProvider {
 
     val Factory = viewModelFactory {
+        initializer { SesionViewModel(avisosApplication().container.sesionRepository) }
 
-        initializer { LoginViewModel() }
+        initializer { LoginViewModel(avisosApplication().container.sesionRepository) }
 
         initializer { AvisosViewModel(avisosApplication().container.avisosRepository) }
 
