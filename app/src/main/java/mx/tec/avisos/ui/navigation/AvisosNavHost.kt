@@ -40,6 +40,7 @@ fun AvisosNavHost(sesion: Sesion, onSalir: () -> Unit) {
             val viewModel: PublicarViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
             PublicarScreen(
+                sesion = sesion,
                 uiState = viewModel.uiState,
                 onTituloChange = viewModel::onTituloChange,
                 onCuerpoChange = viewModel::onCuerpoChange,

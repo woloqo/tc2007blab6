@@ -21,12 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mx.tec.avisos.domain.AvisoValidator
+import mx.tec.avisos.domain.Rol
+import mx.tec.avisos.domain.Sesion
 import mx.tec.avisos.ui.state.PublicarUiState
 import mx.tec.avisos.ui.theme.AvisosTheme
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PublicarScreen(
+    sesion: Sesion,
     uiState: PublicarUiState,
     onTituloChange: (String) -> Unit,
     onCuerpoChange: (String) -> Unit,
@@ -83,24 +87,27 @@ fun PublicarScreen(
 
             Button(
                 onClick = onPublicar,
-                enabled = uiState.puedePublicar,
+                enabled = sesion.puedePublicar,
                 modifier = Modifier.fillMaxWidth()
             ) { Text(if (uiState.enviando) "Publicando…" else "Publicar") }
         }
     }
 }
 
+private val demoSesion = Sesion("profe.demo", Rol.PROFESOR, "x", "y", System.currentTimeMillis() / 1000 + 280)
+
 @Preview(showBackground = true)
 @Composable
 private fun PublicarPreview() {
     AvisosTheme {
         PublicarScreen(
+            sesion = demoSesion.copy(usuario = "a01234567", rol = Rol.ALUMNO),
             uiState = PublicarUiState(
                 titulo = "Examen parcial",
                 cuerpo = "El parcial es el jueves a las 10:00.",
                 error = "Solo un profesor puede publicar o borrar avisos"
             ),
-            onTituloChange = {}, onCuerpoChange = {}, onPublicar = {}, onCancelar = {}
+            onTituloChange = {}, onCuerpoChange = {}, onPublicar = {}, onCancelar = {},
         )
     }
 }
